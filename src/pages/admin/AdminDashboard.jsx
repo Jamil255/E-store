@@ -4,6 +4,7 @@ import OrderDetail from '../../Components/admin/OrderDetail'
 import UserDetail from '../../Components/admin/UserDetail'
 
 const AdminDashboard = () => {
+  let user = JSON.parse(localStorage.getItem('users'))
   return (
     <div>
       {/* Top */}
@@ -30,10 +31,19 @@ const AdminDashboard = () => {
             {/* text  */}
             <div className="">
               <h1 className=" text-center text-lg text-pink-500">
-                <span className=" font-bold">Name :</span> Jamil Afzal
+                <span className=" font-bold">Name :</span> {user?.name}
               </h1>
               <h1 className=" text-center text-lg text-pink-500">
-                <span className=" font-bold">Email :</span> test@gmail.com
+                <span className=" font-bold">Email :</span>
+                {user?.email}
+              </h1>
+              <h1 className=" text-center text-lg text-pink-500">
+                <span className=" font-bold">Date :</span>
+                {user?.date}
+              </h1>
+              <h1 className=" text-center text-lg text-pink-500">
+                <span className=" font-bold">Role :</span>
+                {user?.role}
               </h1>
             </div>
           </div>
@@ -144,7 +154,9 @@ const AdminDashboard = () => {
               <OrderDetail />
             </TabPanel>
 
-            <TabPanel><UserDetail/>r</TabPanel>
+            <TabPanel>
+              <UserDetail />
+            </TabPanel>
           </Tabs>
         </div>
       </div>
