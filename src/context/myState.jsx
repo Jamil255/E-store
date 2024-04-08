@@ -1,7 +1,7 @@
 import { collection, onSnapshot, orderBy, query } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { db } from '../firebase/FirebaseConfig'
-import MyContext from "./myContext"
+import MyContext from './myContext'
 function MyState({ children }) {
   const [loading, setLoading] = useState(false)
 
@@ -10,8 +10,7 @@ function MyState({ children }) {
   const getAllProductFunction = async () => {
     setLoading(true)
     try {
-        const q = query(collection(db, 'products'),
-            orderBy('time'))
+      const q = query(collection(db, 'products'), orderBy('time'))
       const data = onSnapshot(q, (QuerySnapshot) => {
         let productArray = []
         QuerySnapshot.forEach((doc) => {
@@ -36,6 +35,7 @@ function MyState({ children }) {
         loading,
         setLoading,
         getAllProduct,
+        getAllProductFunction,
       }}
     >
       {children}
