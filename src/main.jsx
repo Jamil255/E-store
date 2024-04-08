@@ -5,13 +5,17 @@ import './index.css'
 import { ThemeProvider } from '@material-tailwind/react'
 import { BrowserRouter } from 'react-router-dom'
 import MyState from './context/myState.jsx'
+import { store } from './redux/store.jsx'
+import { Provider } from 'react-redux'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <MyState>
-    <BrowserRouter>
-      <ThemeProvider>
-        <App />
-      </ThemeProvider>
-    </BrowserRouter>
-  </MyState>
+  <Provider store={store}>
+    <MyState>
+      <BrowserRouter>
+        <ThemeProvider>
+          <App />
+        </ThemeProvider>
+      </BrowserRouter>
+    </MyState>
+  </Provider>
 )
