@@ -15,16 +15,18 @@ import { Toaster } from 'react-hot-toast'
 import { ProtectedRouteForUser } from './protectedRoute/ProtectedRouteForUser.jsx'
 import { ProtectedRouteForAdmin } from './protectedRoute/ProtectedRouteForAdmin.jsx'
 import AddProductPage from './pages/admin/AddProductPage.jsx'
+import CategoryPage from './pages/category/CategoryPage.jsx'
 const App = () => {
   return (
     <>
       <ScrollTop />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/productinfo" element={<ProductInfo />} />
+        <Route path="/productinfo/:id" element={<ProductInfo />} />
         <Route path="*" element={<NoPage />} />
         <Route path="/cart" element={<CartPage />} />
         <Route path="/allproduct" element={<AllProduct />} />
+        <Route path="/category/:categoryname" element={<CategoryPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
 
@@ -53,7 +55,7 @@ const App = () => {
           }
         />
         <Route
-          path="/updateproduct"
+          path="/updateproduct/:id"
           element={
             <ProtectedRouteForAdmin>
               <UpdateProductPage />
