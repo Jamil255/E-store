@@ -2,11 +2,28 @@ import { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import myContext from '../../context/myContext'
 import Loader from '../loader/Loader'
+import { useNavigate } from 'react-router-dom'
+import { deleteDoc, doc } from 'firebase/firestore'
+import { db } from '../../firebase/FirebaseConfig'
+import toast from 'react-hot-toast'
 
 const ProductDetail = () => {
   const context = useContext(myContext)
-  const { loading, getAllProduct } = context
-  // console.log(getAllProduct)
+  const { loading, setLoading, getAllProduct, getAllProductFunction } = context
+  const navigate = useNavigate()
+
+  const deleteProduct = async (id) => {
+    setLoading(true)
+    try {
+      await deleteDoc(doc(db, 'products', id))
+      toast.success('Product Deleted successfully')
+      getAllProductFunction()
+      setLoading(false)
+    } catch (error) {
+      console.log(error)
+      setLoading(false)
+    }
+  }
   return (
     <div>
       <div className="py-5 flex justify-between items-center">
@@ -104,10 +121,16 @@ const ProductDetail = () => {
                   <td className="h-12 px-6 text-md transition duration-300 border-t border-l first:border-l-0 border-pink-100 stroke-slate-500 text-slate-500 first-letter:uppercase ">
                     {date}
                   </td>
-                  <td className="h-12 px-6 text-md transition duration-300 border-t border-l first:border-l-0 border-pink-100 stroke-slate-500 text-slate-500 text-green-500 cursor-pointer ">
+                  <td
+                    onClick={(e) => navigate(`/updateproduct/${id}`)}
+                    className="h-12 px-6 text-md transition duration-300 border-t border-l first:border-l-0 border-pink-100 stroke-slate-500 text-slate-500 text-green-500 cursor-pointer "
+                  >
                     Edit
                   </td>
-                  <td className="h-12 px-6 text-md transition duration-300 border-t border-l first:border-l-0 border-pink-100 stroke-slate-500 text-slate-500 text-red-500 cursor-pointer ">
+                  <td
+                    onClick={(e) => deleteProduct(id)}
+                    className="h-12 px-6 text-md transition duration-300 border-t border-l first:border-l-0 border-pink-100 stroke-slate-500 text-slate-500 text-red-500 cursor-pointer "
+                  >
                     Delete
                   </td>
                 </tr>
