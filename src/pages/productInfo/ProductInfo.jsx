@@ -1,33 +1,58 @@
 import { useContext, useEffect, useState } from 'react'
 import myContext from '../../context/myContext'
 import { useParams } from 'react-router'
-import { doc, getDoc } from 'firebase/firestore'
 import { db } from '../../firebase/FirebaseConfig'
-import Loader from '../../Components/loader/Loader'
+import { doc, getDoc } from 'firebase/firestore'
+import { useDispatch, useSelector } from 'react-redux'
+import { addToCart, deleteFromCart } from '../../redux/cartSlice'
+import toast from 'react-hot-toast'
 import Layout from '../../Components/Layout/Layout'
+import Loader from '../../Components/loader/Loader'
 
 const ProductInfo = () => {
   const context = useContext(myContext)
   const { loading, setLoading } = context
 
   const [product, setProduct] = useState('')
+  console.log(product)
 
   const { id } = useParams()
 
-  // console.log(product)
+  console.log(product)
 
   // getProductData
   const getProductData = async () => {
     setLoading(true)
     try {
       const productTemp = await getDoc(doc(db, 'products', id))
-      setProduct(productTemp.data())
+      // console.log({...productTemp.data(), id : productTemp.id})
+      setProduct({ ...productTemp.data(), id: productTemp.id })
       setLoading(false)
     } catch (error) {
       console.log(error)
       setLoading(false)
     }
   }
+
+  const cartItems = useSelector((state) => state.cart)
+  const dispatch = useDispatch()
+
+  const addCart = (item) => {
+    // console.log(item)
+    dispatch(addToCart(item))
+    toast.success('Add to cart')
+  }
+
+  const deleteCart = (item) => {
+    dispatch(deleteFromCart(item))
+    toast.success('Delete cart')
+  }
+
+  // console.log(cartItems)
+
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(cartItems))
+  }, [cartItems])
 
   useEffect(() => {
     getProductData()
@@ -123,7 +148,7 @@ const ProductInfo = () => {
                         </ul>
                       </div>
                       <p className="inline-block text-2xl font-semibold text-gray-700 dark:text-gray-400 ">
-                        <span>$ {product?.price}</span>
+                        <span>₹ {product?.price}</span>
                       </p>
                     </div>
                     <div className="mb-6">
@@ -135,9 +160,21 @@ const ProductInfo = () => {
 
                     <div className="mb-6 " />
                     <div className="flex flex-wrap items-center mb-6">
-                      <button className="w-full px-4 py-3 text-center text-pink-600 bg-pink-100 border border-pink-600  hover:bg-pink-600 hover:text-gray-100  rounded-xl">
-                        Add to cart
-                      </button>
+                      {cartItems.some((p) => p.id === product.id) ? (
+                        <button
+                          onClick={() => deleteCart(product)}
+                          className="w-full px-4 py-3 text-center text-white bg-red-500 border border--600  hover:bg-red-600 hover:text-gray-100  rounded-xl"
+                        >
+                          Delete to cart
+                        </button>
+                      ) : (
+                        <button
+                          onClick={() => addCart(product)}
+                          className="w-full px-4 py-3 text-center text-pink-600 bg-pink-100 border border-pink-600  hover:bg-pink-600 hover:text-gray-100  rounded-xl"
+                        >
+                          Add to cart
+                        </button>
+                      )}
                     </div>
                   </div>
                 </div>
