@@ -44,7 +44,7 @@ const AllProduct = () => {
           <div className="container px-5 lg:px-0 py-5 mx-auto">
             <div className="flex justify-center ">{loading && <Loader />}</div>
             <div className="flex flex-wrap -m-4">
-              {getAllProduct.slice(0, 8).map((item, index) => {
+              {getAllProduct.slice(0).map((item, index) => {
                 const { id, title, price, productImageUrl } = item
                 return (
                   <div key={index} className="p-4 w-full md:w-1/4">
