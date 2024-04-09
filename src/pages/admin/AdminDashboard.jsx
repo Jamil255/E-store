@@ -8,7 +8,7 @@ import { useContext } from 'react'
 const AdminDashboard = () => {
   let user = JSON.parse(localStorage.getItem('users'))
   const context = useContext(myContext)
-  const { getAllProduct } = context
+  const { getAllProduct, getAllOrder,getAllUser } = context
   return (
     <div>
       {/* Top */}
@@ -114,7 +114,7 @@ const AdminDashboard = () => {
                     </svg>
                   </div>
                   <h2 className="title-font font-medium text-3xl text-pink-400 fonts1">
-                    10
+                    {getAllOrder.length}
                   </h2>
                   <p className=" text-pink-500  font-bold">Total Order</p>
                 </div>
@@ -143,7 +143,7 @@ const AdminDashboard = () => {
                     </svg>
                   </div>
                   <h2 className="title-font font-medium text-3xl text-pink-400 fonts1">
-                    10
+                  {getAllUser.length}
                   </h2>
                   <p className=" text-pink-500  font-bold">Total User</p>
                 </div>

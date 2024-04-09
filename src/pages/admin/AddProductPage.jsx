@@ -35,7 +35,8 @@ const categoryList = [
 
 const AddProductPage = () => {
   const context = useContext(myContext)
-  const { loading, setLoading } = context
+    const { loading, setLoading, } = context
+
 
   // navigate
   const navigate = useNavigate()
