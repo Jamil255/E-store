@@ -1,50 +1,23 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
+import myContext from '../../context/myContext'
+import { useNavigate } from 'react-router'
 
-const searchData = [
-  {
-    name: 'Fashion',
-    image:
-      'https://img.freepik.com/free-photo/high-fashion-look-glamor-closeup-portrait-beautiful-sexy-stylish-caucasian-young-woman-model_158538-2774.jpg?size=626&ext=jpg&ga=GA1.1.1700460183.1712361600&semt=sph',
-  },
-  {
-    name: 'Shirt',
-    image:
-      'https://i.pinimg.com/736x/e4/61/f2/e461f2246b6ad93e2099d98780626396.jpg',
-  },
-  {
-    name: 'Jacket',
-    image:
-      'https://i.pinimg.com/564x/fd/50/68/fd50688767adb47aba7204f034554cbd.jpg',
-  },
-  {
-    name: 'Mobile',
-    image:
-      'https://i.pinimg.com/564x/22/80/8d/22808d88ada424962f2e064f3075b2d1.jpg',
-  },
-  {
-    name: 'Laptop',
-    image:
-      'https://media.istockphoto.com/id/479520746/photo/laptop-with-blank-screen-on-white.jpg?s=612x612&w=0&k=20&c=V5dj0ayS8He0BP4x15WR5t5NKYzWTKv7VdWvD2SAVAM=',
-  },
-  {
-    name: 'Home',
-    image:
-      'https://i.pinimg.com/736x/e4/61/f2/e461f2246b6ad93e2099d98780626396.jpg',
-  },
-  {
-    name: 'book',
-    image:
-      'https://i.pinimg.com/564x/fd/50/68/fd50688767adb47aba7204f034554cbd.jpg',
-  },
-]
 const SearchBar = () => {
+  const context = useContext(myContext)
+  const { getAllProduct } = context
+  // Search State
   const [search, setSearch] = useState('')
 
-  const filterSearchData = searchData
-    .filter((obj) => obj.name.toLowerCase().includes(search))
+  // Filter Search Data
+  const filterSearchData = getAllProduct
+    .filter((obj) => obj.category.toLowerCase().includes(search))
     .slice(0, 8)
+
+  const navigate = useNavigate()
+
   return (
     <div className="">
+      {/* search input  */}
       <div className="input flex justify-center">
         <input
           type="text"
@@ -54,6 +27,7 @@ const SearchBar = () => {
         />
       </div>
 
+      {/* search drop-down  */}
       <div className=" flex justify-center">
         {search && (
           <div className="block absolute bg-gray-200 w-96 md:w-96 lg:w-96 z-50 my-1 rounded-lg px-2 py-2">
@@ -61,10 +35,18 @@ const SearchBar = () => {
               <>
                 {filterSearchData.map((item, index) => {
                   return (
-                    <div key={index} className="py-2 px-2">
+                    <div
+                      key={index}
+                      className="py-2 px-2 cursor-pointer"
+                      onClick={() => navigate(`/productinfo/${item.id}`)}
+                    >
                       <div className="flex items-center gap-2">
-                        <img className="w-10" src={item.image} alt="" />
-                        {item.name}
+                        <img
+                          className="w-10"
+                          src={item.productImageUrl}
+                          alt=""
+                        />
+                        {item.category}
                       </div>
                     </div>
                   )
