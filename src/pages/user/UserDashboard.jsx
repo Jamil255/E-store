@@ -119,7 +119,7 @@ const UserDashboard = () => {
                                     Total Amount
                                   </div>
                                   <div className="text-sm font-medium text-gray-900">
-                                    ₹ {price * quantity}
+                                    ${price * quantity}
                                   </div>
                                 </div>
 
@@ -166,7 +166,7 @@ const UserDashboard = () => {
 
                                   <div className="ml-auto flex flex-col items-end justify-between">
                                     <p className="text-right text-sm font-bold text-gray-900">
-                                      ₹ {price}
+                                      ${price}
                                     </p>
                                   </div>
                                 </li>
