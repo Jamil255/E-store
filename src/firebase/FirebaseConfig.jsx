@@ -3,12 +3,12 @@ import { initializeApp } from 'firebase/app'
 import { getFirestore } from 'firebase/firestore'
 import { getAuth } from 'firebase/auth'
 const firebaseConfig = {
-  apiKey: 'AIzaSyDDfWd4aDSTlPb-AFPcy3YHZQTyujFNKqk',
-  authDomain: 'e-store-47cc3.firebaseapp.com',
-  projectId: 'e-store-47cc3',
-  storageBucket: 'e-store-47cc3.appspot.com',
-  messagingSenderId: '71917406687',
-  appId: '1:71917406687:web:9c09fdba51ffbd88ba5c6a',
+  apiKey: import.meta.env.VITE_REACT_API_URL,
+  authDomain: import.meta.env.VITE_REACT_AUTH,
+  projectId: import.meta.env.VITE_REACT_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_REACT_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_REACT_STORAGE_BUCKET,
+  appId: import.meta.env.VITE_REACT_APP_ID,
 }
 
 const app = initializeApp(firebaseConfig)
