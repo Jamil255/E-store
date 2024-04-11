@@ -148,7 +148,7 @@ const ProductInfo = () => {
                         </ul>
                       </div>
                       <p className="inline-block text-2xl font-semibold text-gray-700 dark:text-gray-400 ">
-                        <span>₹ {product?.price}</span>
+                        <span>${product?.price}</span>
                       </p>
                     </div>
                     <div className="mb-6">
