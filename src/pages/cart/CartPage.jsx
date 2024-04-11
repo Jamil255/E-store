@@ -155,7 +155,7 @@ const CartPage = () => {
                                   </div>
                                   <div className="mt-1 flex items-end">
                                     <p className="text-sm font-medium text-gray-900">
-                                      ₹{price}
+                                      ${price}
                                     </p>
                                   </div>
                                 </div>
@@ -224,7 +224,7 @@ const CartPage = () => {
                       Price ({cartItemTotal} item)
                     </dt>
                     <dd className="text-sm font-medium text-gray-900">
-                      ₹ {cartTotal}
+                      $ {cartTotal}
                     </dd>
                   </div>
                   <div className="flex items-center justify-between py-4">
@@ -238,7 +238,7 @@ const CartPage = () => {
                       Total Amount
                     </dt>
                     <dd className="text-base font-medium text-gray-900">
-                      ₹ {cartTotal}
+                      ${cartTotal}
                     </dd>
                   </div>
                 </dl>
